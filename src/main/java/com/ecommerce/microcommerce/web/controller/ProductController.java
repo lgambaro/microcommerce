@@ -104,11 +104,15 @@ public class ProductController {
     @GetMapping (value = "AdminProduits")
     public Map<Product,Integer> calculerMargeProduit(){
         List<Product> produits = productDao.findAll();
-        Map<Product,Integer> marges = new HashMap<Product, Integer>();
+        Map<Product,Integer> marges = new HashMap<>();
         for ( Product p : produits ) {
             marges.put(p,p.getPrix()-p.getPrixAchat());
         }
         return marges;
     }
 
+    @GetMapping (value="ProduitsOrder")
+    public List<Product> trierProduitsParOrdreAlphabetique(){
+        return productDao.findByOrderByNomAsc();
+    }
 }
